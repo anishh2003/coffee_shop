@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(ProviderScope(child: const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -40,6 +40,14 @@ class MainApp extends StatelessWidget {
         ),
         cardTheme: CardTheme(
             surfaceTintColor: kColorScheme.surfaceTint, elevation: 15.0),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kColorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5), // <-- Radius
+            ),
+          ),
+        ),
       ),
       darkTheme: ThemeData().copyWith(
         colorScheme: kColorScheme,
@@ -50,9 +58,7 @@ class MainApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       home: const Scaffold(
         body: Center(
-          child: ProviderScope(
-            child: HomePage(),
-          ),
+          child: HomePage(),
         ),
       ),
     );

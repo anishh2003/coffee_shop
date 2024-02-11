@@ -1,5 +1,6 @@
 import 'package:coffee_shop/models/model.dart';
 import 'package:coffee_shop/provider/cofeeList_provider.dart';
+import 'package:coffee_shop/screens/coffee_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,79 +32,90 @@ class ShopPage extends ConsumerWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 10.0),
-                    child: Card(
-                      child: ListTile(
-                        leading: Image.asset(
-                          coffeTypesInStore[index].image,
-                          scale: 2,
-                        ),
-                        title: Text(
-                          coffeTypesInStore[index].title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        subtitle: Column(
-                          children: [
-                            Text(
-                              coffeTypesInStore[index].description,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => CoffeeDetailPage(
+                              image: coffeTypesInStore[index].image,
                             ),
-                            const SizedBox(height: 5.0),
-                            Column(
-                              children: [
-                                Stack(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(" Small:",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium),
-                                        Text(
-                                            " £${coffeTypesInStore[index].price}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall),
-                                      ],
-                                    ),
-                                    Positioned(
-                                      right: 1.0,
-                                      child: Row(
+                          ),
+                        );
+                      },
+                      child: Card(
+                        child: ListTile(
+                          leading: Image.asset(
+                            coffeTypesInStore[index].image,
+                            scale: 2,
+                          ),
+                          title: Text(
+                            coffeTypesInStore[index].title,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          subtitle: Column(
+                            children: [
+                              Text(
+                                coffeTypesInStore[index].description,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              const SizedBox(height: 5.0),
+                              Column(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Row(
                                         children: [
-                                          Text(" Medium:",
+                                          Text(" Small:",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelMedium),
                                           Text(
-                                              " £${coffeTypesInStore[index].price + 0.5}",
+                                              " £${coffeTypesInStore[index].price}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelSmall),
                                         ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(" Large:",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium),
-                                    Text(
-                                        " £${coffeTypesInStore[index].price + 1}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelSmall),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward,
-                          color: Theme.of(context).colorScheme.primary,
+                                      Positioned(
+                                        right: 1.0,
+                                        child: Row(
+                                          children: [
+                                            Text(" Medium:",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium),
+                                            Text(
+                                                " £${coffeTypesInStore[index].price + 0.5}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(" Large:",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
+                                      Text(
+                                          " £${coffeTypesInStore[index].price + 1}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                     ),
