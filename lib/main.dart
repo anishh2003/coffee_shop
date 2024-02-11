@@ -23,6 +23,14 @@ class MainApp extends StatelessWidget {
             color: kColorScheme.onPrimary,
             fontStyle: FontStyle.italic,
           ),
+          headlineMedium: GoogleFonts.archivoNarrow(
+            color: kColorScheme.primary,
+            fontStyle: FontStyle.italic,
+          ),
+          headlineSmall: GoogleFonts.archivoNarrow(
+            color: kColorScheme.primary,
+            fontStyle: FontStyle.italic,
+          ),
           titleSmall: GoogleFonts.archivoNarrow(
             color: kColorScheme.primary,
             fontWeight: FontWeight.w600,

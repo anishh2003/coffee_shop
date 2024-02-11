@@ -46,8 +46,8 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
           Column(
             children: [
               Text("QUANTITY",
-                  style: Theme.of(context).textTheme.headlineLarge),
-              SizedBox(height: 30.0),
+                  style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(height: 30.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100.0),
                 child: Row(
@@ -66,6 +66,7 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                     )),
                     Expanded(
                       child: TextField(
+                        style: Theme.of(context).textTheme.headlineSmall,
                         textAlign: TextAlign.center,
                         controller: textController,
                         keyboardType: TextInputType.number,
@@ -102,7 +103,7 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
           ),
           Column(
             children: [
-              Text("SIZE", style: Theme.of(context).textTheme.headlineLarge),
+              Text("SIZE", style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: 10.0),
               ToggleButtons(
                 fillColor: Theme.of(context).colorScheme.primary,

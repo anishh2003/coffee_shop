@@ -43,6 +43,14 @@ class ShopPage extends ConsumerWidget {
                         );
                       },
                       child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(10), // if you need this
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 1,
+                          ),
+                        ),
                         child: ListTile(
                           leading: Image.asset(
                             coffeTypesInStore[index].image,
