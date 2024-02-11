@@ -33,9 +33,10 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    var quantityDesired = ref.watch(coffeeTypeQuantityProvider);
-    return Material(
-      child: Column(
+    ref.watch(coffeeTypeQuantityProvider);
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(
@@ -63,7 +64,10 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                           return state;
                         });
                       },
-                      icon: const Icon(Icons.minimize),
+                      icon: Icon(
+                        Icons.minimize,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     )),
                     Expanded(
                       child: TextField(
@@ -97,7 +101,8 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                           return state;
                         });
                       },
-                      icon: const Icon(Icons.add),
+                      icon: Icon(Icons.add,
+                          color: Theme.of(context).colorScheme.primary),
                     )),
                   ],
                 ),
@@ -107,9 +112,12 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
           Column(
             children: [
               Text("SIZE", style: Theme.of(context).textTheme.headlineLarge),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               ToggleButtons(
-                selectedColor: Colors.red,
+                fillColor: Theme.of(context).colorScheme.primary,
+                // color: Theme.of(context).colorScheme.primary,
+                borderRadius: BorderRadius.circular(10.0),
+                selectedColor: Theme.of(context).colorScheme.onPrimary,
                 disabledColor: Colors.grey,
                 onPressed: (index) {
                   setState(() {
