@@ -5,18 +5,33 @@ final coffeeTypeQuantityProvider = StateProvider<String>((ref) {
   return quantity;
 });
 
-// class CoffeTypeQuantityNotifier extends StateNotifier<String> {
-//   CoffeTypeQuantityNotifier() : super('0');
+class CoffeTypeQuantityNotifier extends StateNotifier<String> {
+  CoffeTypeQuantityNotifier() : super('0');
 
-//   String quantity = '0';
+  String addAmount(String textFieldValue) {
+    int intValue = int.parse(textFieldValue);
+    if (intValue >= 15) {
+      intValue = 15;
+    } else {
+      intValue = intValue + 1;
+    }
 
-//   String addAmount(String textFieldValue) {
-//     int intValue = int.parse(textFieldValue);
-//     return intValue.toString();
-//   }
-// }
+    return intValue.toString();
+  }
 
-// final coffeeListProvider =
-//     StateNotifierProvider<CoffeTypeQuantityNotifier, String>((ref) {
-//   return CoffeTypeQuantityNotifier();
-// });
+  String reduceAmount(String textFieldValue) {
+    int intValue = int.parse(textFieldValue);
+    if (intValue <= 0) {
+      intValue = 0;
+    } else {
+      intValue = intValue - 1;
+    }
+
+    return intValue.toString();
+  }
+}
+
+final coffeeTypeAmountProvider =
+    StateNotifierProvider<CoffeTypeQuantityNotifier, String>((ref) {
+  return CoffeTypeQuantityNotifier();
+});

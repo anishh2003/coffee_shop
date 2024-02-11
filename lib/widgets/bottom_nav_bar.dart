@@ -15,12 +15,15 @@ class BottomNavBar extends ConsumerWidget {
         tabMargin: const EdgeInsets.all(20),
         mainAxisAlignment: MainAxisAlignment.center,
         tabBorderRadius: 15,
-        tabActiveBorder:
-            Border.all(color: Colors.black, width: 1), // tab button border
+        tabActiveBorder: Border.all(
+            color: Theme.of(context).colorScheme.primary,
+            width: 1), // tab button border
         tabBorder:
             Border.all(color: Colors.grey, width: 1), // tab button border
         tabShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 8)
+          BoxShadow(
+            color: Theme.of(context).colorScheme.surfaceVariant,
+          )
         ], // tab button shadow
 
         gap: 0, // the tab button gap between icon and text
@@ -31,14 +34,16 @@ class BottomNavBar extends ConsumerWidget {
             Colors.brown.withOpacity(0.1), // selected tab background color
         padding: const EdgeInsets.symmetric(
             horizontal: 10, vertical: 5), // navigation bar padding
-        tabs: const [
+        tabs: [
           GButton(
             icon: Icons.coffee,
             text: "Coffee",
+            textStyle: Theme.of(context).textTheme.titleMedium,
           ),
           GButton(
             icon: Icons.credit_card,
             text: "Pay",
+            textStyle: Theme.of(context).textTheme.titleMedium,
           ),
         ]);
   }

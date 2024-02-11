@@ -70,7 +70,7 @@ class ShopPage extends ConsumerWidget {
                                                   .textTheme
                                                   .labelMedium),
                                           Text(
-                                              " £${coffeTypesInStore[index].price}",
+                                              " £${coffeTypesInStore[index].smallPrice}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelSmall),
@@ -85,7 +85,7 @@ class ShopPage extends ConsumerWidget {
                                                     .textTheme
                                                     .labelMedium),
                                             Text(
-                                                " £${coffeTypesInStore[index].price + 0.5}",
+                                                " £${coffeTypesInStore[index].mediumPrice}",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .labelSmall),
@@ -102,7 +102,7 @@ class ShopPage extends ConsumerWidget {
                                               .textTheme
                                               .labelMedium),
                                       Text(
-                                          " £${coffeTypesInStore[index].price + 1}",
+                                          " £${coffeTypesInStore[index].largePrice}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelSmall),

@@ -4,12 +4,16 @@ class CoffeeModel {
   String title;
   String description;
   String image;
-  double price;
+  double smallPrice;
+  double mediumPrice;
+  double largePrice;
   CoffeeModel({
     required this.id,
     required this.title,
     required this.description,
     required this.image,
-    required this.price,
+    required this.smallPrice,
+    required this.mediumPrice,
+    required this.largePrice,
   });
 }

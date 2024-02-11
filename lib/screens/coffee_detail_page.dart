@@ -33,7 +33,7 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(coffeeTypeQuantityProvider);
+    ref.watch(coffeeTypeAmountProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: Column(
@@ -56,13 +56,8 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                         child: IconButton(
                       onPressed: () {
                         textController.text = ref
-                            .read(coffeeTypeQuantityProvider.notifier)
-                            .update((state) {
-                          int.parse(state) > 0
-                              ? state = (int.parse(state) - 1).toString()
-                              : 0;
-                          return state;
-                        });
+                            .read(coffeeTypeAmountProvider.notifier)
+                            .reduceAmount(textController.text);
                       },
                       icon: Icon(
                         Icons.minimize,
@@ -76,7 +71,8 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -93,13 +89,8 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                         child: IconButton(
                       onPressed: () {
                         textController.text = ref
-                            .read(coffeeTypeQuantityProvider.notifier)
-                            .update((state) {
-                          int.parse(state) < 15
-                              ? state = (int.parse(state) + 1).toString()
-                              : 15;
-                          return state;
-                        });
+                            .read(coffeeTypeAmountProvider.notifier)
+                            .addAmount(textController.text);
                       },
                       icon: Icon(Icons.add,
                           color: Theme.of(context).colorScheme.primary),

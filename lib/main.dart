@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(ProviderScope(child: const MainApp()));
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -20,18 +20,35 @@ class MainApp extends StatelessWidget {
         colorScheme: kColorScheme,
         textTheme: appTheme.copyWith(
           headlineLarge: GoogleFonts.archivoNarrow(
-              textStyle: Theme.of(context).textTheme.headlineLarge,
-              fontStyle: FontStyle.italic),
+            color: kColorScheme.onPrimary,
+            fontStyle: FontStyle.italic,
+          ),
+          titleSmall: GoogleFonts.archivoNarrow(
+            color: kColorScheme.primary,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.italic,
+          ),
+          titleMedium: GoogleFonts.archivoNarrow(
+            color: kColorScheme.primary,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.italic,
+          ),
+          titleLarge: GoogleFonts.archivoNarrow(
+            color: kColorScheme.primary,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.italic,
+          ),
           bodyLarge: GoogleFonts.archivoNarrow(
-              textStyle: Theme.of(context).textTheme.bodyLarge,
-              fontStyle: FontStyle.italic),
+            color: kColorScheme.secondary,
+            fontStyle: FontStyle.italic,
+          ),
           labelMedium: GoogleFonts.archivoNarrow(
-              textStyle: Theme.of(context).textTheme.labelMedium,
+              color: kColorScheme.secondary,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
               fontSize: 15.0),
           labelSmall: GoogleFonts.archivoNarrow(
-              textStyle: Theme.of(context).textTheme.labelMedium,
+              color: kColorScheme.secondary,
               fontWeight: FontWeight.w100,
               fontSize: 15.0),
         ),
@@ -51,8 +68,35 @@ class MainApp extends StatelessWidget {
       ),
       darkTheme: ThemeData().copyWith(
         colorScheme: kColorScheme,
+        textTheme: GoogleFonts.robotoSerifTextTheme().copyWith(
+          headlineLarge: GoogleFonts.roboto(
+              textStyle: Theme.of(context).textTheme.headlineLarge,
+              fontStyle: FontStyle.italic),
+          bodyLarge: GoogleFonts.roboto(
+              textStyle: Theme.of(context).textTheme.bodyLarge,
+              fontStyle: FontStyle.italic),
+          labelMedium: GoogleFonts.roboto(
+              textStyle: Theme.of(context).textTheme.labelMedium,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold,
+              fontSize: 15.0),
+          labelSmall: GoogleFonts.roboto(
+              textStyle: Theme.of(context).textTheme.labelMedium,
+              fontWeight: FontWeight.w100,
+              fontSize: 15.0),
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: kColorScheme.primary,
+        ),
+        cardTheme: CardTheme(
+            surfaceTintColor: kColorScheme.surfaceTint, elevation: 15.0),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kColorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5), // <-- Radius
+            ),
+          ),
         ),
       ),
       themeMode: ThemeMode.system,
