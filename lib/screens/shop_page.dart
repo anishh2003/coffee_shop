@@ -37,7 +37,7 @@ class ShopPage extends ConsumerWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => CoffeeDetailPage(
-                              image: coffeTypesInStore[index].image,
+                              coffeeType: coffeTypesInStore[index],
                             ),
                           ),
                         );

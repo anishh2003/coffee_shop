@@ -7,6 +7,7 @@ class CoffeeModel {
   double smallPrice;
   double mediumPrice;
   double largePrice;
+  int quantity;
   CoffeeModel({
     required this.id,
     required this.title,
@@ -15,5 +16,6 @@ class CoffeeModel {
     required this.smallPrice,
     required this.mediumPrice,
     required this.largePrice,
+    this.quantity = 0,
   });
 }

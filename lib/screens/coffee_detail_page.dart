@@ -1,3 +1,4 @@
+import 'package:coffee_shop/models/model.dart';
 import 'package:coffee_shop/provider/coffeeAmount_provider.dart';
 import 'package:coffee_shop/widgets/quantity_selection.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CoffeeDetailPage extends ConsumerStatefulWidget {
   const CoffeeDetailPage({
     super.key,
-    required this.image,
+    required this.coffeeType,
   });
 
-  final String image;
+  final CoffeeModel coffeeType;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -27,7 +28,7 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(
-            widget.image,
+            widget.coffeeType.image,
             scale: 5.0,
           ),
           const QuantitySelection(),
@@ -73,12 +74,11 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                       onPressed: () {},
                       child: Text(
                         'Add to Cart',
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimary, // Change to your desired color
-                                ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                                color: Theme.of(context).colorScheme.onPrimary),
                       )),
                 ),
               ],
