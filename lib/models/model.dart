@@ -8,6 +8,7 @@ class CoffeeModel {
   double mediumPrice;
   double largePrice;
   int quantity;
+  double priceBasedOnQuantity;
   CoffeeModel({
     required this.id,
     required this.title,
@@ -17,5 +18,11 @@ class CoffeeModel {
     required this.mediumPrice,
     required this.largePrice,
     this.quantity = 0,
+    this.priceBasedOnQuantity = 0,
   });
+
+  @override
+  String toString() {
+    return 'CoffeeModel(id: $id, title: $title, description: $description, image: $image, smallPrice: $smallPrice, mediumPrice: $mediumPrice, largePrice: $largePrice, quantity: $quantity, priceBasedOnQuantity: $priceBasedOnQuantity)';
+  }
 }

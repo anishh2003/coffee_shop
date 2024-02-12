@@ -1,3 +1,5 @@
+import 'package:coffee_shop/models/model.dart';
+import 'package:coffee_shop/provider/coffeeList_provider.dart';
 import 'package:coffee_shop/provider/coffeeAmount_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,7 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class QuantitySelection extends ConsumerStatefulWidget {
   const QuantitySelection({
     super.key,
+    required this.coffeeType,
   });
+
+  final CoffeeModel coffeeType;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -30,6 +35,7 @@ class _QuantitySelectionState extends ConsumerState<QuantitySelection> {
   @override
   Widget build(BuildContext context) {
     ref.watch(coffeeTypeAmountProvider);
+    ref.watch(coffeeSelectedProvider);
     return Column(
       children: [
         Text("QUANTITY", style: Theme.of(context).textTheme.headlineMedium),
@@ -44,6 +50,10 @@ class _QuantitySelectionState extends ConsumerState<QuantitySelection> {
                   textController.text = ref
                       .read(coffeeTypeAmountProvider.notifier)
                       .reduceAmount(textController.text);
+                  ref
+                      .read(coffeeSelectedProvider.notifier)
+                      .updateQuantityOfCoffeeType(
+                          widget.coffeeType.id, textController.text);
                 },
                 icon: Icon(
                   Icons.minimize,
@@ -78,6 +88,10 @@ class _QuantitySelectionState extends ConsumerState<QuantitySelection> {
                   textController.text = ref
                       .read(coffeeTypeAmountProvider.notifier)
                       .addAmount(textController.text);
+                  ref
+                      .read(coffeeSelectedProvider.notifier)
+                      .updateQuantityOfCoffeeType(
+                          widget.coffeeType.id, textController.text);
                 },
                 icon: Icon(Icons.add,
                     color: Theme.of(context).colorScheme.primary),

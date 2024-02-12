@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 List<CoffeeModel> coffeeTypes = [
   CoffeeModel(
-      id: 1,
+      id: 0,
       title: 'Espresso',
       description:
           "A very strong coffee drink as opposed to the slightly milder flavour of black coffee.",
@@ -12,7 +12,7 @@ List<CoffeeModel> coffeeTypes = [
       mediumPrice: 1.8,
       largePrice: 2.3),
   CoffeeModel(
-      id: 2,
+      id: 1,
       title: 'Cortado',
       description:
           "This Spanish-style coffee contains an equal amount of Espresso and steamed milk. ",
@@ -21,7 +21,7 @@ List<CoffeeModel> coffeeTypes = [
       mediumPrice: 2.5,
       largePrice: 3.0),
   CoffeeModel(
-      id: 3,
+      id: 2,
       title: 'Mocha',
       description:
           " A mocha is similar to a latte or cappuccino in that it's made from espresso and steamed milk. ",
@@ -30,7 +30,7 @@ List<CoffeeModel> coffeeTypes = [
       mediumPrice: 3.0,
       largePrice: 3.5),
   CoffeeModel(
-      id: 4,
+      id: 3,
       title: 'Cafe au Lait ',
       description: "Cafe au Lait is coffee with milk.",
       image: 'lib/assets/cafeaulait.png',

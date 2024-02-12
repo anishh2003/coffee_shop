@@ -1,5 +1,7 @@
 import 'package:coffee_shop/models/model.dart';
+import 'package:coffee_shop/provider/cartList_provider.dart';
 import 'package:coffee_shop/provider/coffeeAmount_provider.dart';
+import 'package:coffee_shop/provider/coffeeList_provider.dart';
 import 'package:coffee_shop/widgets/quantity_selection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,6 +24,8 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(coffeeSelectedProvider);
+    ref.watch(cartListProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: Column(
@@ -31,7 +35,7 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
             widget.coffeeType.image,
             scale: 5.0,
           ),
-          const QuantitySelection(),
+          QuantitySelection(coffeeType: widget.coffeeType),
           Column(
             children: [
               Text("SIZE", style: Theme.of(context).textTheme.headlineMedium),
@@ -54,6 +58,9 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                       }
                     }
                   });
+                  ref
+                      .read(coffeeSelectedProvider.notifier)
+                      .selectedCoffeeTypePrice(widget.coffeeType.id, index);
                 },
                 isSelected: toggleButtonStatus,
                 children: const [
@@ -71,7 +78,9 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref.read(cartListProvider).add(widget.coffeeType);
+                      },
                       child: Text(
                         'Add to Cart',
                         style: Theme.of(context)
