@@ -25,14 +25,20 @@ class CoffeeSelectedListNotifier extends StateNotifier<List<CoffeeModel>> {
         coffeeSelected.priceBasedOnQuantity =
             coffeeSelected.smallPrice * coffeeSelected.quantity;
         coffeeSelected.selectedSize = "Small";
+        coffeeSelected.selectedSizeUnitPrice = coffeeSelected.smallPrice;
+        break;
       case 1:
         coffeeSelected.priceBasedOnQuantity =
             coffeeSelected.mediumPrice * coffeeSelected.quantity;
         coffeeSelected.selectedSize = "Medium";
+        coffeeSelected.selectedSizeUnitPrice = coffeeSelected.mediumPrice;
+        break;
       case 2:
         coffeeSelected.priceBasedOnQuantity =
             coffeeSelected.largePrice * coffeeSelected.quantity;
         coffeeSelected.selectedSize = "Large";
+        coffeeSelected.selectedSizeUnitPrice = coffeeSelected.largePrice;
+        break;
     }
 
     state = [...state];

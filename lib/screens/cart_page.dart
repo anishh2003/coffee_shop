@@ -74,7 +74,7 @@ class CartPage extends ConsumerWidget {
                                                   .textTheme
                                                   .labelMedium),
                                           Text(
-                                              " £${coffeTypesSelected[index].smallPrice}",
+                                              " £${coffeTypesSelected[index].selectedSizeUnitPrice}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelSmall),
