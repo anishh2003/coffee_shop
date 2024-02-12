@@ -1,6 +1,7 @@
 import 'package:coffee_shop/screens/cart_page.dart';
 import 'package:coffee_shop/screens/shop_page.dart';
 import 'package:coffee_shop/widgets/bottom_nav_bar.dart';
+import 'package:coffee_shop/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,7 +37,12 @@ class _HomePageState extends ConsumerState<HomePage> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
         ),
+        iconTheme: IconThemeData(
+            color: Theme.of(context)
+                .colorScheme
+                .onPrimary), //changes the drawer burger button icon color
       ),
+      drawer: const DrawerWidget(),
       bottomNavigationBar: BottomNavBar(
         onTabChange: (index) => navigateBottomBar(index),
       ),

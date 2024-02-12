@@ -51,14 +51,14 @@ class MainApp extends StatelessWidget {
             fontStyle: FontStyle.italic,
           ),
           labelMedium: GoogleFonts.archivoNarrow(
-              color: kColorScheme.secondary,
+              color: kColorScheme.primary,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
               fontSize: 15.0),
           labelSmall: GoogleFonts.archivoNarrow(
               color: kColorScheme.secondary,
               fontWeight: FontWeight.w100,
-              fontSize: 15.0),
+              fontSize: 14.0),
         ),
         appBarTheme: AppBarTheme(
           backgroundColor: kColorScheme.primary,
