@@ -109,7 +109,9 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                      onPressed: (textController.text != '0')
+                      onPressed: (textController.text != '0' &&
+                              toggleButtonStatus
+                                  .any((sizeSelected) => sizeSelected == true))
                           ? () {
                               ref.read(cartListProvider).add(widget.coffeeType);
                             }
