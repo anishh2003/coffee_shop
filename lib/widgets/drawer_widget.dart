@@ -17,7 +17,7 @@ class DrawerWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            curve: Curves.easeInToLinear,
+            curve: Curves.fastOutSlowIn,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
             ),
