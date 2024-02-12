@@ -56,7 +56,7 @@ class MainApp extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 15.0),
           labelSmall: GoogleFonts.archivoNarrow(
-              color: kColorScheme.secondary,
+              color: kColorScheme.primary,
               fontWeight: FontWeight.w100,
               fontSize: 14.0),
         ),

@@ -69,6 +69,20 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                   Text('L'),
                 ],
               ),
+              const SizedBox(height: 10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('£${widget.coffeeType.smallPrice.toString()}',
+                      style: Theme.of(context).textTheme.labelSmall),
+                  const SizedBox(width: 20.0),
+                  Text('£${widget.coffeeType.mediumPrice.toString()}',
+                      style: Theme.of(context).textTheme.labelSmall),
+                  const SizedBox(width: 20.0),
+                  Text('£${widget.coffeeType.largePrice.toString()}',
+                      style: Theme.of(context).textTheme.labelSmall),
+                ],
+              ),
             ],
           ),
           Padding(

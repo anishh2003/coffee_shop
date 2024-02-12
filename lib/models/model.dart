@@ -9,6 +9,7 @@ class CoffeeModel {
   double largePrice;
   int quantity;
   double priceBasedOnQuantity;
+  String selectedSize;
   CoffeeModel({
     required this.id,
     required this.title,
@@ -19,6 +20,7 @@ class CoffeeModel {
     required this.largePrice,
     this.quantity = 0,
     this.priceBasedOnQuantity = 0,
+    this.selectedSize = '',
   });
 
   @override

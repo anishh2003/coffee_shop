@@ -1,4 +1,5 @@
 import 'package:coffee_shop/models/model.dart';
+import 'package:coffee_shop/provider/cartList_provider.dart';
 import 'package:coffee_shop/provider/coffeeList_provider.dart';
 import 'package:coffee_shop/screens/coffee_detail_page.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,7 @@ class CartPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<CoffeeModel> coffeTypesInStore =
-        ref.watch(coffeeTypesAvailableProvider);
+    List<CoffeeModel> coffeTypesSelected = ref.watch(cartListProvider);
     return Stack(
       children: [
         Column(
@@ -28,7 +28,7 @@ class CartPage extends ConsumerWidget {
             SizedBox(
               height: 350.0,
               child: ListView.builder(
-                  itemCount: coffeTypesInStore.length,
+                  itemCount: coffeTypesSelected.length,
                   itemBuilder: ((context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
@@ -38,7 +38,7 @@ class CartPage extends ConsumerWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => CoffeeDetailPage(
-                                coffeeType: coffeTypesInStore[index],
+                                coffeeType: coffeTypesSelected[index],
                               ),
                             ),
                           );
@@ -53,11 +53,11 @@ class CartPage extends ConsumerWidget {
                           ),
                           child: ListTile(
                             leading: Image.asset(
-                              coffeTypesInStore[index].image,
+                              coffeTypesSelected[index].image,
                               scale: 2,
                             ),
                             title: Text(
-                              coffeTypesInStore[index].title,
+                              coffeTypesSelected[index].title,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             subtitle: Column(
@@ -67,12 +67,14 @@ class CartPage extends ConsumerWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(" Small:",
+                                        Text(
+                                            coffeTypesSelected[index]
+                                                .selectedSize,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelMedium),
                                         Text(
-                                            " £${coffeTypesInStore[index].smallPrice}",
+                                            " £${coffeTypesSelected[index].smallPrice}",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelSmall),
@@ -80,11 +82,14 @@ class CartPage extends ConsumerWidget {
                                     ),
                                     Row(
                                       children: [
-                                        Text(" Quantity:",
+                                        Text("Quantity : ",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelMedium),
-                                        Text(" 10",
+                                        Text(
+                                            coffeTypesSelected[index]
+                                                .quantity
+                                                .toString(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelSmall),
@@ -115,7 +120,9 @@ class CartPage extends ConsumerWidget {
               children: [
                 Text('SubTotal  : ',
                     style: Theme.of(context).textTheme.titleMedium),
-                Text('£100.0', style: Theme.of(context).textTheme.labelMedium),
+                Text(
+                    '£ ${ref.watch(cartListProvider.notifier).subTotalPrice()}',
+                    style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
             Row(
@@ -123,7 +130,9 @@ class CartPage extends ConsumerWidget {
               children: [
                 Text('Vat (20%) :   ',
                     style: Theme.of(context).textTheme.titleMedium),
-                Text('£10.0', style: Theme.of(context).textTheme.labelMedium),
+                Text(
+                    '£ ${ref.watch(cartListProvider.notifier).vatCalculation()}',
+                    style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
             Padding(
@@ -141,7 +150,9 @@ class CartPage extends ConsumerWidget {
               children: [
                 Text('Total  :  ',
                     style: Theme.of(context).textTheme.titleMedium),
-                Text('£120.0', style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                    '£ ${ref.watch(cartListProvider.notifier).totalPriceForCart()}',
+                    style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
           ]),
