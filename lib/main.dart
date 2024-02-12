@@ -17,63 +17,71 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       theme: ThemeData().copyWith(
-        colorScheme: kColorScheme,
-        textTheme: appTheme.copyWith(
-          headlineLarge: GoogleFonts.archivoNarrow(
-            color: kColorScheme.onPrimary,
-            fontStyle: FontStyle.italic,
-          ),
-          headlineMedium: GoogleFonts.archivoNarrow(
-            color: kColorScheme.primary,
-            fontStyle: FontStyle.italic,
-          ),
-          headlineSmall: GoogleFonts.archivoNarrow(
-            color: kColorScheme.primary,
-            fontStyle: FontStyle.italic,
-          ),
-          titleSmall: GoogleFonts.archivoNarrow(
-            color: kColorScheme.primary,
-            fontWeight: FontWeight.w600,
-            fontStyle: FontStyle.italic,
-          ),
-          titleMedium: GoogleFonts.archivoNarrow(
-            color: kColorScheme.primary,
-            fontWeight: FontWeight.w600,
-            fontStyle: FontStyle.italic,
-          ),
-          titleLarge: GoogleFonts.archivoNarrow(
-            color: kColorScheme.primary,
-            fontWeight: FontWeight.w600,
-            fontStyle: FontStyle.italic,
-          ),
-          bodyLarge: GoogleFonts.archivoNarrow(
-            color: kColorScheme.secondary,
-            fontStyle: FontStyle.italic,
-          ),
-          labelMedium: GoogleFonts.archivoNarrow(
+          colorScheme: kColorScheme,
+          textTheme: appTheme.copyWith(
+            headlineLarge: GoogleFonts.archivoNarrow(
+              color: kColorScheme.onPrimary,
+              fontStyle: FontStyle.italic,
+            ),
+            headlineMedium: GoogleFonts.archivoNarrow(
               color: kColorScheme.primary,
               fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
-              fontSize: 15.0),
-          labelSmall: GoogleFonts.archivoNarrow(
+            ),
+            headlineSmall: GoogleFonts.archivoNarrow(
               color: kColorScheme.primary,
-              fontWeight: FontWeight.w100,
-              fontSize: 14.0),
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: kColorScheme.primary,
-        ),
-        cardTheme: CardTheme(
-            surfaceTintColor: kColorScheme.surfaceTint, elevation: 15.0),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
+              fontStyle: FontStyle.italic,
+            ),
+            titleSmall: GoogleFonts.archivoNarrow(
+              color: kColorScheme.primary,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.italic,
+            ),
+            titleMedium: GoogleFonts.archivoNarrow(
+              color: kColorScheme.primary,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.italic,
+            ),
+            titleLarge: GoogleFonts.archivoNarrow(
+              color: kColorScheme.primary,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.italic,
+            ),
+            bodyLarge: GoogleFonts.archivoNarrow(
+              color: kColorScheme.secondary,
+              fontStyle: FontStyle.italic,
+            ),
+            labelMedium: GoogleFonts.archivoNarrow(
+                color: kColorScheme.primary,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0),
+            labelSmall: GoogleFonts.archivoNarrow(
+                color: kColorScheme.primary,
+                fontWeight: FontWeight.w100,
+                fontSize: 14.0),
+          ),
+          appBarTheme: AppBarTheme(
             backgroundColor: kColorScheme.primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5), // <-- Radius
+          ),
+          cardTheme: CardTheme(
+              surfaceTintColor: kColorScheme.surfaceTint, elevation: 15.0),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: kColorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5), // <-- Radius
+              ),
             ),
           ),
-        ),
-      ),
+          scrollbarTheme: ScrollbarThemeData(
+            thumbColor: MaterialStateColor.resolveWith((states) {
+              if (states.contains(MaterialState.pressed)) {
+                return kColorScheme.primary
+                    .withOpacity(0.8); // Adjust opacity or color as needed
+              }
+              return kColorScheme.primary; // Default color when not pressed
+            }),
+          )),
       darkTheme: ThemeData().copyWith(
         colorScheme: kColorScheme,
         textTheme: GoogleFonts.robotoSerifTextTheme().copyWith(

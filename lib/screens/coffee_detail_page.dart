@@ -114,6 +114,16 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                                   .any((sizeSelected) => sizeSelected == true))
                           ? () {
                               ref.read(cartListProvider).add(widget.coffeeType);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Center(
+                                      child: Text(
+                                          "Coffee has been added to the cart")),
+                                ),
+                              );
+                              Future.delayed(const Duration(seconds: 1), () {
+                                return Navigator.pop(context);
+                              });
                             }
                           : null,
                       child: Text(

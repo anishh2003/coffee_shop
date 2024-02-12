@@ -25,95 +25,107 @@ class CartPage extends ConsumerWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 350.0,
-              child: ListView.builder(
-                  itemCount: coffeTypesSelected.length,
-                  itemBuilder: ((context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 10.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CoffeeDetailPage(
-                                coffeeType: coffeTypesSelected[index],
-                              ),
-                            ),
-                          );
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: BorderSide(
-                              color: Theme.of(context).colorScheme.primary,
-                              width: 1,
-                            ),
-                          ),
-                          child: ListTile(
-                              leading: Image.asset(
-                                coffeTypesSelected[index].image,
-                                scale: 2,
-                              ),
-                              title: Text(
-                                coffeTypesSelected[index].title,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              subtitle: Column(
-                                children: [
-                                  const SizedBox(height: 5.0),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                              coffeTypesSelected[index]
-                                                  .selectedSize,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelMedium),
-                                          Text(
-                                              " £${coffeTypesSelected[index].selectedSizeUnitPrice}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelSmall),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("Quantity : ",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelMedium),
-                                          Text(
-                                              coffeTypesSelected[index]
-                                                  .quantity
-                                                  .toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelSmall),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              trailing: IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Theme.of(context).colorScheme.primary,
+            Scrollbar(
+              thumbVisibility: true,
+              trackVisibility: true,
+              child: SizedBox(
+                height: 350.0,
+                child: ListView.builder(
+                    itemCount: coffeTypesSelected.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => CoffeeDetailPage(
+                                  coffeeType: coffeTypesSelected[index],
                                 ),
-                                onPressed: () {
-                                  ref
-                                      .read(cartListProvider.notifier)
-                                      .removeFromList(index);
-                                },
-                              )),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                                width: 1,
+                              ),
+                            ),
+                            child: ListTile(
+                                leading: Image.asset(
+                                  coffeTypesSelected[index].image,
+                                  scale: 2,
+                                ),
+                                title: Text(
+                                  coffeTypesSelected[index].title,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                subtitle: Column(
+                                  children: [
+                                    const SizedBox(height: 5.0),
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                                coffeTypesSelected[index]
+                                                    .selectedSize,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium),
+                                            Text(
+                                                " £${coffeTypesSelected[index].selectedSizeUnitPrice}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text("Quantity : ",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium),
+                                            Text(
+                                                coffeTypesSelected[index]
+                                                    .quantity
+                                                    .toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                trailing: IconButton(
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  onPressed: () {
+                                    ref
+                                        .read(cartListProvider.notifier)
+                                        .removeFromList(index);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Center(
+                                            child: Text(
+                                                "Coffee has been removed from the cart")),
+                                      ),
+                                    );
+                                  },
+                                )),
+                          ),
                         ),
-                      ),
-                    );
-                  })),
+                      );
+                    })),
+              ),
             ),
           ],
         ),
