@@ -20,7 +20,21 @@ class CoffeeDetailPage extends ConsumerStatefulWidget {
 }
 
 class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
-  List<bool> toggleButtonStatus = [true, false, false];
+  List<bool> toggleButtonStatus = [false, false, false];
+  late TextEditingController textController;
+
+  @override
+  void initState() {
+    textController = TextEditingController(text: '0');
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +49,10 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
             widget.coffeeType.image,
             scale: 5.0,
           ),
-          QuantitySelection(coffeeType: widget.coffeeType),
+          QuantitySelection(
+            coffeeType: widget.coffeeType,
+            textController: textController,
+          ),
           Column(
             children: [
               Text("SIZE", style: Theme.of(context).textTheme.headlineMedium),
@@ -92,9 +109,11 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                      onPressed: () {
-                        ref.read(cartListProvider).add(widget.coffeeType);
-                      },
+                      onPressed: (textController.text != '0')
+                          ? () {
+                              ref.read(cartListProvider).add(widget.coffeeType);
+                            }
+                          : null,
                       child: Text(
                         'Add to Cart',
                         style: Theme.of(context)

@@ -8,9 +8,11 @@ class QuantitySelection extends ConsumerStatefulWidget {
   const QuantitySelection({
     super.key,
     required this.coffeeType,
+    required this.textController,
   });
 
   final CoffeeModel coffeeType;
+  final TextEditingController textController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -18,20 +20,6 @@ class QuantitySelection extends ConsumerStatefulWidget {
 }
 
 class _QuantitySelectionState extends ConsumerState<QuantitySelection> {
-  late TextEditingController textController;
-
-  @override
-  void initState() {
-    textController = TextEditingController(text: '0');
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     ref.watch(coffeeTypeAmountProvider);
@@ -47,13 +35,13 @@ class _QuantitySelectionState extends ConsumerState<QuantitySelection> {
               Expanded(
                   child: IconButton(
                 onPressed: () {
-                  textController.text = ref
+                  widget.textController.text = ref
                       .read(coffeeTypeAmountProvider.notifier)
-                      .reduceAmount(textController.text);
+                      .reduceAmount(widget.textController.text);
                   ref
                       .read(coffeeSelectedProvider.notifier)
                       .updateQuantityOfCoffeeType(
-                          widget.coffeeType.id, textController.text);
+                          widget.coffeeType.id, widget.textController.text);
                 },
                 icon: Icon(
                   Icons.minimize,
@@ -64,7 +52,7 @@ class _QuantitySelectionState extends ConsumerState<QuantitySelection> {
                 child: TextField(
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
-                  controller: textController,
+                  controller: widget.textController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -85,13 +73,13 @@ class _QuantitySelectionState extends ConsumerState<QuantitySelection> {
               Expanded(
                   child: IconButton(
                 onPressed: () {
-                  textController.text = ref
+                  widget.textController.text = ref
                       .read(coffeeTypeAmountProvider.notifier)
-                      .addAmount(textController.text);
+                      .addAmount(widget.textController.text);
                   ref
                       .read(coffeeSelectedProvider.notifier)
                       .updateQuantityOfCoffeeType(
-                          widget.coffeeType.id, textController.text);
+                          widget.coffeeType.id, widget.textController.text);
                 },
                 icon: Icon(Icons.add,
                     color: Theme.of(context).colorScheme.primary),
