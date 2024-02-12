@@ -52,58 +52,64 @@ class CartPage extends ConsumerWidget {
                             ),
                           ),
                           child: ListTile(
-                            leading: Image.asset(
-                              coffeTypesSelected[index].image,
-                              scale: 2,
-                            ),
-                            title: Text(
-                              coffeTypesSelected[index].title,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            subtitle: Column(
-                              children: [
-                                const SizedBox(height: 5.0),
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                            coffeTypesSelected[index]
-                                                .selectedSize,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium),
-                                        Text(
-                                            " £${coffeTypesSelected[index].smallPrice}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text("Quantity : ",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium),
-                                        Text(
-                                            coffeTypesSelected[index]
-                                                .quantity
-                                                .toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall),
-                                      ],
-                                    ),
-                                  ],
+                              leading: Image.asset(
+                                coffeTypesSelected[index].image,
+                                scale: 2,
+                              ),
+                              title: Text(
+                                coffeTypesSelected[index].title,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              subtitle: Column(
+                                children: [
+                                  const SizedBox(height: 5.0),
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                              coffeTypesSelected[index]
+                                                  .selectedSize,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium),
+                                          Text(
+                                              " £${coffeTypesSelected[index].smallPrice}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text("Quantity : ",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium),
+                                          Text(
+                                              coffeTypesSelected[index]
+                                                  .quantity
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelSmall),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              trailing: IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
-                              ],
-                            ),
-                            trailing: Icon(
-                              Icons.delete,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
+                                onPressed: () {
+                                  ref
+                                      .read(cartListProvider.notifier)
+                                      .removeFromList(index);
+                                },
+                              )),
                         ),
                       ),
                     );

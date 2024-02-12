@@ -1,6 +1,5 @@
 import 'package:coffee_shop/models/data.dart';
 import 'package:coffee_shop/models/model.dart';
-import 'package:coffee_shop/provider/coffeeAmount_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final coffeeTypesAvailableProvider = Provider<List<CoffeeModel>>((ref) {

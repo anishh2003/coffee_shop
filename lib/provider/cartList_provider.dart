@@ -13,8 +13,9 @@ class CartListNotifier extends StateNotifier<List<CoffeeModel>> {
   }
 
   void removeFromList(index) {
-    List<CoffeeModel> newCoffeeSelected =
-        state.where((coffeeType) => state[index].id != index).toList();
+    List<CoffeeModel> newCoffeeSelected = state
+        .where((coffeeType) => state.indexOf(coffeeType) != index)
+        .toList();
     state = [...newCoffeeSelected];
   }
 
