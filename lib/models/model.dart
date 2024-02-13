@@ -25,7 +25,7 @@ class CoffeeModel {
     this.priceBasedOnQuantity = 0,
     this.selectedSize = 'Small',
     this.selectedSizeUnitPrice = 0,
-    this.toggleButtonStatus = const [false, false, false],
+    this.toggleButtonStatus = const [true, false, false],
     this.toggleButtonStatusIndex = 0,
   });
 
