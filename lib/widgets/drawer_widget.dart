@@ -1,3 +1,5 @@
+import 'package:coffee_shop/screens/about_us.dart';
+import 'package:coffee_shop/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -35,8 +37,11 @@ class DrawerWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AboutUs(),
+                  ),
+                );
               },
             ),
           ),
@@ -50,8 +55,11 @@ class DrawerWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage(),
+                ),
+              );
             },
           ),
         ],
