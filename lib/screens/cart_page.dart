@@ -129,7 +129,7 @@ class CartPage extends ConsumerWidget {
           ],
         ),
         Positioned(
-          right: 20.0,
+          left: 10.0,
           bottom: 10.0,
           child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
             Row(
@@ -173,6 +173,22 @@ class CartPage extends ConsumerWidget {
             ),
           ]),
         ),
+        Positioned(
+          right: 20.0,
+          bottom: 10.0,
+          child: SizedBox(
+            width: 200.0,
+            child: ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  'Pay Now',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+                )),
+          ),
+        )
       ],
     );
   }
