@@ -11,6 +11,8 @@ class CoffeeModel {
   double priceBasedOnQuantity;
   String selectedSize;
   double selectedSizeUnitPrice;
+  List<bool> toggleButtonStatus;
+  int toggleButtonStatusIndex;
   CoffeeModel({
     required this.id,
     required this.title,
@@ -23,6 +25,8 @@ class CoffeeModel {
     this.priceBasedOnQuantity = 0,
     this.selectedSize = 'Small',
     this.selectedSizeUnitPrice = 0,
+    this.toggleButtonStatus = const [false, false, false],
+    this.toggleButtonStatusIndex = 0,
   });
 
   @override

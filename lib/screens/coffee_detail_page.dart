@@ -1,6 +1,5 @@
 import 'package:coffee_shop/models/model.dart';
 import 'package:coffee_shop/provider/cartList_provider.dart';
-import 'package:coffee_shop/provider/coffeeAmount_provider.dart';
 import 'package:coffee_shop/provider/coffeeList_provider.dart';
 import 'package:coffee_shop/widgets/quantity_selection.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,6 @@ class CoffeeDetailPage extends ConsumerStatefulWidget {
 }
 
 class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
-  List<bool> toggleButtonStatus = [false, false, false];
   late TextEditingController textController;
 
   @override
@@ -63,23 +61,11 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                 selectedColor: Theme.of(context).colorScheme.onPrimary,
                 disabledColor: Colors.grey,
                 onPressed: (index) {
-                  setState(() {
-                    for (int buttonIndex = 0;
-                        buttonIndex < toggleButtonStatus.length;
-                        buttonIndex++) {
-                      if (buttonIndex == index) {
-                        toggleButtonStatus[index] = !toggleButtonStatus[index];
-                      } else {
-                        toggleButtonStatus[buttonIndex] =
-                            false; // Set other buttons to false
-                      }
-                    }
-                  });
                   ref
                       .read(coffeeSelectedProvider.notifier)
-                      .selectedCoffeeTypePrice(widget.coffeeType.id, index);
+                      .updateSelectedCoffeeSize(widget.coffeeType.id, index);
                 },
-                isSelected: toggleButtonStatus,
+                isSelected: widget.coffeeType.toggleButtonStatus,
                 children: const [
                   Text('S'),
                   Text('M'),
@@ -110,9 +96,17 @@ class _CoffeeDetailPageState extends ConsumerState<CoffeeDetailPage> {
                 Expanded(
                   child: ElevatedButton(
                       onPressed: (textController.text != '0' &&
-                              toggleButtonStatus
+                              /* checks if any toggle button has been selected*/
+                              widget.coffeeType.toggleButtonStatus
                                   .any((sizeSelected) => sizeSelected == true))
                           ? () {
+                              ref
+                                  .read(coffeeSelectedProvider.notifier)
+                                  .selectedCoffeeTypePrice(
+                                      widget.coffeeType.id,
+                                      widget
+                                          .coffeeType.toggleButtonStatusIndex);
+
                               ref.read(cartListProvider).add(widget.coffeeType);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

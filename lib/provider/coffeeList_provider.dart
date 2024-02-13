@@ -16,6 +16,22 @@ class CoffeeSelectedListNotifier extends StateNotifier<List<CoffeeModel>> {
     state = [...state];
   }
 
+  void updateSelectedCoffeeSize(int coffeeTypeId, int toggleIndex) {
+    state = state.map((coffeeType) {
+      if (coffeeType.id == coffeeTypeId) {
+        // Update the toggleButtonStatusIndex
+        coffeeType.toggleButtonStatusIndex = toggleIndex;
+
+        // Update the toggleButtonStatus list
+        coffeeType.toggleButtonStatus = List.generate(
+          coffeeType.toggleButtonStatus.length,
+          (index) => index == toggleIndex,
+        );
+      }
+      return coffeeType;
+    }).toList();
+  }
+
   void selectedCoffeeTypePrice(int index, int toggleIndex) {
     CoffeeModel coffeeSelected =
         state.firstWhere((coffeeType) => coffeeType.id == index);
