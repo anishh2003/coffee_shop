@@ -137,8 +137,7 @@ class CartPage extends ConsumerWidget {
               children: [
                 Text('SubTotal  : ',
                     style: Theme.of(context).textTheme.titleMedium),
-                Text(
-                    '£ ${ref.watch(cartListProvider.notifier).subTotalPrice()}',
+                Text('£ ${ref.read(cartListProvider.notifier).subTotalPrice()}',
                     style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
@@ -148,7 +147,7 @@ class CartPage extends ConsumerWidget {
                 Text('Vat (20%) :   ',
                     style: Theme.of(context).textTheme.titleMedium),
                 Text(
-                    '£ ${ref.watch(cartListProvider.notifier).vatCalculation()}',
+                    '£ ${ref.read(cartListProvider.notifier).vatCalculation()}',
                     style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
@@ -168,7 +167,7 @@ class CartPage extends ConsumerWidget {
                 Text('Total  :  ',
                     style: Theme.of(context).textTheme.titleMedium),
                 Text(
-                    '£ ${ref.watch(cartListProvider.notifier).totalPriceForCart()}',
+                    '£ ${ref.read(cartListProvider.notifier).totalPriceForCart()}',
                     style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
