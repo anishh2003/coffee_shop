@@ -8,6 +8,7 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: SingleChildScrollView(
+        key: UniqueKey(),
         child: Container(
             padding: const EdgeInsets.all(16.0),
             child: Column(

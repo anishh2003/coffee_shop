@@ -12,6 +12,7 @@ class ShopPage extends ConsumerWidget {
     List<CoffeeModel> coffeTypesInStore =
         ref.watch(coffeeTypesAvailableProvider);
     return SingleChildScrollView(
+      key: UniqueKey(),
       child: Column(
         children: [
           Padding(
