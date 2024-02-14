@@ -16,8 +16,10 @@ Future<void> makePayment(String cartAmount, bool darkThemeToggle) async {
     await Stripe.instance
         .initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
-              paymentIntentClientSecret:
-                  paymentIntent!['client_secret'], //Gotten from payment intent
+              paymentIntentClientSecret: paymentIntent!['client_secret'],
+              /* TODO : even though darkThemeToggle has been implemented, 
+                 the card theme only changes based on setting dark mode through
+                 phone's accessibility options. */
               style: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
               merchantDisplayName: 'Coffee House'),
         )
