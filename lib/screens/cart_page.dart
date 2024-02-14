@@ -1,6 +1,7 @@
 import 'package:coffee_shop/models/model.dart';
 import 'package:coffee_shop/payments/stripe_payment.dart';
 import 'package:coffee_shop/provider/cartList_provider.dart';
+import 'package:coffee_shop/provider/settings_provider.dart';
 import 'package:coffee_shop/screens/coffee_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +25,7 @@ class _CartPageState extends ConsumerState<CartPage> {
   @override
   Widget build(BuildContext context) {
     List<CoffeeModel> coffeTypesSelected = ref.watch(cartListProvider);
+    var darkThemeToggle = ref.watch(lightThemeProvider);
     return Stack(
       children: [
         SingleChildScrollView(
@@ -206,7 +208,9 @@ class _CartPageState extends ConsumerState<CartPage> {
               width: 200.0,
               child: ElevatedButton(
                   onPressed: () async {
-                    await makePayment();
+                    await makePayment(
+                        ref.read(cartListProvider.notifier).totalPriceForCart(),
+                        darkThemeToggle);
                   },
                   child: Text(
                     'Pay Now',

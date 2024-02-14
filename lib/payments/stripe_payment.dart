@@ -7,22 +7,21 @@ import 'package:http/http.dart' as http;
 
 dynamic paymentIntent;
 
-Future<void> makePayment() async {
+Future<void> makePayment(String cartAmount, bool darkThemeToggle) async {
   try {
     //STEP 1: Create Payment Intent
-    paymentIntent = await createPaymentIntent('100', 'GBP');
+    paymentIntent = await createPaymentIntent(cartAmount, 'GBP');
 
     //STEP 2: Initialize Payment Sheet
     await Stripe.instance
         .initPaymentSheet(
-            paymentSheetParameters: SetupPaymentSheetParameters(
-                paymentIntentClientSecret: paymentIntent![
-                    'client_secret'], //Gotten from payment intent
-                style: ThemeMode.light,
-                merchantDisplayName: 'Coffee House'))
-        .then((value) {
-      print("GOT IT !");
-    });
+          paymentSheetParameters: SetupPaymentSheetParameters(
+              paymentIntentClientSecret:
+                  paymentIntent!['client_secret'], //Gotten from payment intent
+              style: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
+              merchantDisplayName: 'Coffee House'),
+        )
+        .then((value) {});
 
     //STEP 3: Display Payment sheet
     displayPaymentSheet();
@@ -55,8 +54,11 @@ createPaymentIntent(String amount, String currency) async {
 }
 
 calculateAmount(String amount) {
-  final calculatedAmout = (int.parse(amount)) * 100;
-  return calculatedAmout.toString();
+  if (amount.contains('.')) {
+    amount = amount.replaceAll('.', ''); // Remove the period from the string
+  }
+  final calculatedAmount = (int.parse(amount));
+  return calculatedAmount.toString();
 }
 
 displayPaymentSheet() async {
