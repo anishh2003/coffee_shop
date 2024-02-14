@@ -4,14 +4,28 @@ import 'package:coffee_shop/screens/coffee_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ShopPage extends ConsumerWidget {
+class ShopPage extends ConsumerStatefulWidget {
   const ShopPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _ShopPageState();
+}
+
+class _ShopPageState extends ConsumerState<ShopPage> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     List<CoffeeModel> coffeTypesInStore =
         ref.watch(coffeeTypesAvailableProvider);
     return SingleChildScrollView(
+      controller: _scrollController,
       key: UniqueKey(),
       child: Column(
         children: [

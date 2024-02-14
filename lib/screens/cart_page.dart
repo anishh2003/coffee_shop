@@ -5,15 +5,29 @@ import 'package:coffee_shop/screens/coffee_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CartPage extends ConsumerWidget {
+class CartPage extends ConsumerStatefulWidget {
   const CartPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _CartPageState();
+}
+
+class _CartPageState extends ConsumerState<CartPage> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     List<CoffeeModel> coffeTypesSelected = ref.watch(cartListProvider);
     return Stack(
       children: [
         SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
             children: [
               Padding(
@@ -130,70 +144,76 @@ class CartPage extends ConsumerWidget {
                       })),
                 ),
               ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 1.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text('SubTotal  : ',
+                              style: Theme.of(context).textTheme.titleMedium),
+                          Text(
+                              '£ ${ref.read(cartListProvider.notifier).subTotalPrice()}',
+                              style: Theme.of(context).textTheme.labelMedium),
+                        ],
+                      ),
+                      Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text('Vat (20%) :   ',
+                              style: Theme.of(context).textTheme.titleMedium),
+                          Text(
+                              '£ ${ref.read(cartListProvider.notifier).vatCalculation()}',
+                              style: Theme.of(context).textTheme.labelMedium),
+                        ],
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: SizedBox(
+                            height: 10.0,
+                            width: 120.0,
+                            child: Divider(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text('Total  :  ',
+                              style: Theme.of(context).textTheme.titleMedium),
+                          Text(
+                              '£ ${ref.read(cartListProvider.notifier).totalPriceForCart()}',
+                              style: Theme.of(context).textTheme.titleLarge),
+                        ],
+                      ),
+                    ]),
+              ),
             ],
           ),
         ),
-        Positioned(
-          left: 10.0,
-          bottom: 10.0,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-            Row(
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                Text('SubTotal  : ',
-                    style: Theme.of(context).textTheme.titleMedium),
-                Text('£ ${ref.read(cartListProvider.notifier).subTotalPrice()}',
-                    style: Theme.of(context).textTheme.labelMedium),
-              ],
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: SizedBox(
+              width: 200.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    await makePayment();
+                  },
+                  child: Text(
+                    'Pay Now',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
+                  )),
             ),
-            Row(
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                Text('Vat (20%) :   ',
-                    style: Theme.of(context).textTheme.titleMedium),
-                Text(
-                    '£ ${ref.read(cartListProvider.notifier).vatCalculation()}',
-                    style: Theme.of(context).textTheme.labelMedium),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SizedBox(
-                height: 10.0,
-                width: 100.0,
-                child: Divider(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            Row(
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                Text('Total  :  ',
-                    style: Theme.of(context).textTheme.titleMedium),
-                Text(
-                    '£ ${ref.read(cartListProvider.notifier).totalPriceForCart()}',
-                    style: Theme.of(context).textTheme.titleLarge),
-              ],
-            ),
-          ]),
-        ),
-        Positioned(
-          right: 20.0,
-          bottom: 10.0,
-          child: SizedBox(
-            width: 200.0,
-            child: ElevatedButton(
-                onPressed: () async {
-                  await makePayment();
-                },
-                child: Text(
-                  'Pay Now',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Theme.of(context).colorScheme.onPrimary),
-                )),
           ),
         )
       ],

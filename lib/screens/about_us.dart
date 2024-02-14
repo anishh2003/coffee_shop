@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 
-class AboutUs extends StatelessWidget {
+class AboutUs extends StatefulWidget {
   const AboutUs({Key? key}) : super(key: key);
+
+  @override
+  State<AboutUs> createState() => _AboutUsState();
+}
+
+class _AboutUsState extends State<AboutUs> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: SingleChildScrollView(
+        controller: _scrollController,
         key: UniqueKey(),
         child: Container(
             padding: const EdgeInsets.all(16.0),
