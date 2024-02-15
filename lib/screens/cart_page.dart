@@ -207,11 +207,17 @@ class _CartPageState extends ConsumerState<CartPage> {
             child: SizedBox(
               width: 200.0,
               child: ElevatedButton(
-                  onPressed: () async {
-                    await makePayment(
-                        ref.read(cartListProvider.notifier).totalPriceForCart(),
-                        darkThemeToggle);
-                  },
+                  onPressed:
+                      ref.read(cartListProvider.notifier).totalPriceForCart() ==
+                              '0.00'
+                          ? null
+                          : () async {
+                              await makePayment(
+                                  ref
+                                      .read(cartListProvider.notifier)
+                                      .totalPriceForCart(),
+                                  darkThemeToggle);
+                            },
                   child: Text(
                     'Pay Now',
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
