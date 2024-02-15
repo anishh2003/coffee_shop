@@ -213,6 +213,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                           ? null
                           : () async {
                               await makePayment(
+                                  context,
                                   ref
                                       .read(cartListProvider.notifier)
                                       .totalPriceForCart(),
