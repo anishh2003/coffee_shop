@@ -21,16 +21,36 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var darkThemeToggle = ref.watch(lightThemeProvider);
-    return MaterialApp(
-      theme: lightMode,
-      darkTheme: darkMode,
-      themeMode: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
-      home: const Scaffold(
-        body: Center(
-          child: HomePage(),
+    var initialiseSettings = ref.watch(initialiseSettingsProvider);
+    var darkThemeToggle = ref.watch(darkThemeProvider);
+
+    return initialiseSettings.when(
+      data: (data) => MaterialApp(
+        theme: lightMode,
+        darkTheme: darkMode,
+        themeMode: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
+        home: const Scaffold(
+          body: Center(
+            child: HomePage(),
+          ),
         ),
       ),
+      error: (error, stackTrace) => MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Text("Error encountered : $error"),
+          ),
+        ),
+      ),
+      loading: () {
+        return MaterialApp(
+          home: Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        );
+      },
     );
   }
 }

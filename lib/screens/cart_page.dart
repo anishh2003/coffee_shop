@@ -25,7 +25,7 @@ class _CartPageState extends ConsumerState<CartPage> {
   @override
   Widget build(BuildContext context) {
     List<CoffeeModel> coffeTypesSelected = ref.watch(cartListProvider);
-    var darkThemeToggle = ref.watch(lightThemeProvider);
+    var darkThemeToggle = ref.watch(usersSettingsProvider);
     return Stack(
       children: [
         SingleChildScrollView(
@@ -217,7 +217,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                                   ref
                                       .read(cartListProvider.notifier)
                                       .totalPriceForCart(),
-                                  darkThemeToggle);
+                                  darkThemeToggle.getUsersThemeSettings()!);
                             },
                   child: Text(
                     'Pay Now',

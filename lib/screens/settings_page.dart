@@ -12,7 +12,8 @@ class SettingsPage extends ConsumerStatefulWidget {
 class _SettingsPageState extends ConsumerState<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    var lightThemetoggleValue = ref.watch(lightThemeProvider);
+    var darkThemetoggleValue = ref.watch(usersSettingsProvider);
+    var darkTheme = ref.watch(darkThemeProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       body: Padding(
@@ -25,7 +26,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-            SizedBox(height: 30.0),
+            const SizedBox(height: 30.0),
             Center(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,16 +38,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   ),
                   Switch(
                     // This bool value toggles the switch.
-                    value: lightThemetoggleValue,
+                    value: darkTheme,
+
                     activeColor: Theme.of(context).colorScheme.primary,
-                    onChanged: (bool value) {
+                    onChanged: (bool value) async {
                       ref
-                          .read(lightThemeProvider.notifier)
+                          .read(darkThemeProvider.notifier)
                           .update((state) => value);
-                      // This is called when the user toggles the switch.
-                      // setState(() {
-                      //   light = value;
-                      // });
+                      await darkThemetoggleValue.setUsersThemeSettings(value);
                     },
                   ),
                 ],
@@ -58,54 +57,3 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     );
   }
 }
-
-// class SettingsPage extends ConsumerWidget {
-//   const SettingsPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return Scaffold(
-//       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-//       body: Padding(
-//         padding: const EdgeInsets.all(20.0),
-//         child: Column(
-//           children: [
-//             Center(
-//               child: Text(
-//                 'Settings',
-//                 style: Theme.of(context).textTheme.headlineMedium,
-//               ),
-//             ),
-//             SizedBox(height: 30.0),
-//             Center(
-//               child: Row(
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                     "Dark theme : ",
-//                     style: Theme.of(context).textTheme.headlineSmall,
-//                   ),
-//                   Switch(
-//                     // This bool value toggles the switch.
-//                     value: true,
-//                     activeColor: Theme.of(context).colorScheme.primary,
-//                     onChanged: (bool value) {
-//                       ref
-//                           .read(lightThemeProvider.notifier)
-//                           .update((state) => value);
-//                       // This is called when the user toggles the switch.
-//                       // setState(() {
-//                       //   light = value;
-//                       // });
-//                     },
-//                   ),
-//                 ],
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
