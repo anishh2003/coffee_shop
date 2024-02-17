@@ -1,27 +1,27 @@
-import 'package:coffee_shop/screens/authentication/register_page.dart';
-import 'package:coffee_shop/screens/home_page.dart';
+import 'package:coffee_shop/screens/authentication/login_page.dart';
 import 'package:coffee_shop/widgets/auth_textfield.dart';
 import 'package:coffee_shop/widgets/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key, required this.onTap});
+class RegisterPage extends StatefulWidget {
+  RegisterPage({super.key, required this.onTap});
 
   void Function()? onTap;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   // sign user in method
-  void signUserIn() async {
+  void signUserUp() async {
     // show loading circle
     showDialog(
       context: context,
@@ -34,22 +34,31 @@ class _LoginPageState extends State<LoginPage> {
 
     // try sign in
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      Navigator.pop(context);
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Center(child: Text('Passwords don\'t match !')),
+          ),
+        );
+      }
+
       // pop the loading circle
       // ignore: use_build_context_synchronously
-    } on FirebaseAuthException catch (_) {
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
       // pop the loading circle
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
       // WRONG EMAIL
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Center(child: Text('Email or password is incorrect !')),
+        SnackBar(
+          content: Center(child: Text(e.code.toString())),
         ),
       );
     }
@@ -77,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // welcome back, you've been missed!
                 Text(
-                  'Welcome back !',
+                  'Register for you\'re new account !',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 16,
@@ -103,33 +112,20 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 const SizedBox(height: 10),
-
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                      ),
-                    ],
-                  ),
+                // confirm password textfield
+                AuthTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 30),
 
                 // sign in button
                 ElevatedButton(
-                  onPressed: signUserIn,
+                  onPressed: signUserUp,
                   child: Text(
-                    "Sign In",
+                    "Sign Up",
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary),
                   ),
@@ -196,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        'Register now',
+                        'Login now',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.bold,

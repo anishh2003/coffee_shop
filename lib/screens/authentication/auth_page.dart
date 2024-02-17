@@ -1,4 +1,5 @@
 import 'package:coffee_shop/provider/settings_provider.dart';
+import 'package:coffee_shop/screens/authentication/login_or_register_page.dart';
 import 'package:coffee_shop/screens/authentication/login_page.dart';
 import 'package:coffee_shop/screens/home_page.dart';
 import 'package:coffee_shop/widgets/theme_data.dart';
@@ -42,7 +43,7 @@ class AuthPage extends ConsumerWidget {
                   },
                 );
               } else {
-                return const LoginPage();
+                return const LoginOrRegisterPage();
               }
             }));
   }
