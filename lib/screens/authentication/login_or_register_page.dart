@@ -1,15 +1,18 @@
+import 'package:coffee_shop/provider/auth_page_provider.dart';
 import 'package:coffee_shop/screens/authentication/login_page.dart';
 import 'package:coffee_shop/screens/authentication/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginOrRegisterPage extends StatefulWidget {
+class LoginOrRegisterPage extends ConsumerStatefulWidget {
   const LoginOrRegisterPage({super.key});
 
   @override
-  State<LoginOrRegisterPage> createState() => _LoginOrRegisterPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LoginOrRegisterPageState();
 }
 
-class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
+class _LoginOrRegisterPageState extends ConsumerState<LoginOrRegisterPage> {
   bool showLoginPage = true;
 
   void togglePages() {
@@ -20,13 +23,10 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (showLoginPage) {
-      return LoginPage(
-        onTap: togglePages,
-      );
+    var authPageShown = ref.watch(authPageProvider);
+    if (authPageShown) {
+      return const LoginPage();
     } else {}
-    return RegisterPage(
-      onTap: togglePages,
-    );
+    return const RegisterPage();
   }
 }
