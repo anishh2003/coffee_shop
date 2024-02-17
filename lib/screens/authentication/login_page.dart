@@ -1,5 +1,6 @@
 import 'package:coffee_shop/widgets/auth_textfield.dart';
 import 'package:coffee_shop/widgets/square_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -28,64 +29,26 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     // try sign in
-    // try {
-    //   await FirebaseAuth.instance.signInWithEmailAndPassword(
-    //     email: emailController.text,
-    //     password: passwordController.text,
-    //   );
-    //   // pop the loading circle
-    //   Navigator.pop(context);
-    // } on FirebaseAuthException catch (e) {
-    //   // pop the loading circle
-    //   Navigator.pop(context);
-    //   // WRONG EMAIL
-    //   if (e.code == 'user-not-found') {
-    //     // show error to user
-    //     wrongEmailMessage();
-    //   }
-
-    //   // WRONG PASSWORD
-    //   else if (e.code == 'wrong-password') {
-    //     // show error to user
-    //     wrongPasswordMessage();
-    //   }
-    // }
-  }
-
-  // wrong email message popup
-  void wrongEmailMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          backgroundColor: Colors.deepPurple,
-          title: Center(
-            child: Text(
-              'Incorrect Email',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  // wrong password message popup
-  void wrongPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          backgroundColor: Colors.deepPurple,
-          title: Center(
-            child: Text(
-              'Incorrect Password',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      // pop the loading circle
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (_) {
+      // pop the loading circle
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+      // WRONG EMAIL
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Center(child: Text('Email or password is incorrect !')),
+        ),
+      );
+    }
   }
 
   @override

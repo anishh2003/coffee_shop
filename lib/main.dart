@@ -1,4 +1,5 @@
 import 'package:coffee_shop/provider/settings_provider.dart';
+import 'package:coffee_shop/screens/authentication/auth_page.dart';
 import 'package:coffee_shop/screens/authentication/login_page.dart';
 import 'package:coffee_shop/screens/home_page.dart';
 import 'package:coffee_shop/widgets/theme_data.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import '.env';
 
 void main() async {
@@ -14,6 +17,9 @@ void main() async {
   Stripe.instance.applySettings();
   //Load our .env file that contains our Stripe Secret key
   await dotenv.load(fileName: "lib/.env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ProviderScope(child: MainApp()));
 }
 
@@ -22,47 +28,16 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var initialiseSettings = ref.watch(initialiseSettingsProvider);
     var darkThemeToggle = ref.watch(darkThemeProvider);
-
     return MaterialApp(
       theme: lightMode,
       darkTheme: darkMode,
       themeMode: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
       home: const Scaffold(
         body: Center(
-          child: LoginPage(),
+          child: AuthPage(),
         ),
       ),
     );
-
-    // return initialiseSettings.when(
-    //   data: (data) => MaterialApp(
-    //     theme: lightMode,
-    //     darkTheme: darkMode,
-    //     themeMode: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
-    //     home: const Scaffold(
-    //       body: Center(
-    //         child: HomePage(),
-    //       ),
-    //     ),
-    //   ),
-    //   error: (error, stackTrace) => MaterialApp(
-    //     home: Scaffold(
-    //       body: Center(
-    //         child: Text("Error encountered : $error"),
-    //       ),
-    //     ),
-    //   ),
-    //   loading: () {
-    //     return MaterialApp(
-    //       home: Center(
-    //         child: CircularProgressIndicator(
-    //           color: Theme.of(context).colorScheme.primary,
-    //         ),
-    //       ),
-    //     );
-    //   },
-    // );
   }
 }

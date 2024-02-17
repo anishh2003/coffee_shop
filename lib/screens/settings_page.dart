@@ -1,4 +1,5 @@
 import 'package:coffee_shop/provider/settings_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,29 +28,39 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               ),
             ),
             const SizedBox(height: 30.0),
-            Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Dark theme : ",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Switch(
-                    // This bool value toggles the switch.
-                    value: darkTheme,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "User Email : ",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                Text('${FirebaseAuth.instance.currentUser!.email}',
+                    style: Theme.of(context).textTheme.headlineSmall),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Dark theme : ",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                Switch(
+                  // This bool value toggles the switch.
+                  value: darkTheme,
 
-                    activeColor: Theme.of(context).colorScheme.primary,
-                    onChanged: (bool value) async {
-                      ref
-                          .read(darkThemeProvider.notifier)
-                          .update((state) => value);
-                      await darkThemetoggleValue.setUsersThemeSettings(value);
-                    },
-                  ),
-                ],
-              ),
+                  activeColor: Theme.of(context).colorScheme.primary,
+                  onChanged: (bool value) async {
+                    ref
+                        .read(darkThemeProvider.notifier)
+                        .update((state) => value);
+                    await darkThemetoggleValue.setUsersThemeSettings(value);
+                  },
+                ),
+              ],
             )
           ],
         ),
