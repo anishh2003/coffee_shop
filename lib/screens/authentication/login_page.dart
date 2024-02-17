@@ -1,3 +1,4 @@
+import 'package:coffee_shop/provider/auth_page_provider.dart';
 import 'package:coffee_shop/screens/authentication/register_page.dart';
 import 'package:coffee_shop/screens/home_page.dart';
 import 'package:coffee_shop/widgets/auth_textfield.dart';
@@ -5,18 +6,17 @@ import 'package:coffee_shop/widgets/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key, required this.onTap});
-
-  void Function()? onTap;
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  // text editing controllers
+class _LoginPageState extends ConsumerState<LoginPage> {
+// text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -194,7 +194,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
-                      onTap: widget.onTap,
+                      onTap: () => ref
+                          .read(authPageProvider.notifier)
+                          .update((state) => !state),
                       child: Text(
                         'Register now',
                         style: TextStyle(
