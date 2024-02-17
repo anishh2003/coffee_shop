@@ -40,7 +40,7 @@ class _ShopPageState extends ConsumerState<ShopPage> {
             ),
           ),
           SizedBox(
-            height: 440.0,
+            height: MediaQuery.of(context).size.height * 0.70,
             child: ListView.builder(
                 itemCount: coffeTypesInStore.length,
                 itemBuilder: ((context, index) {

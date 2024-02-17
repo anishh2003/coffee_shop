@@ -43,8 +43,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                 .onPrimary), //changes the drawer burger button icon color
       ),
       drawer: const DrawerWidget(),
-      bottomNavigationBar: BottomNavBar(
-        onTabChange: (index) => navigateBottomBar(index),
+      bottomNavigationBar: SizedBox(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                  width: 2.0, color: Theme.of(context).colorScheme.primary),
+              // bottom: BorderSide(width: 16.0, color: Colors.lightBlue.shade900),
+            ),
+            color: Colors.white,
+          ),
+          child: BottomNavBar(
+            onTabChange: (index) => navigateBottomBar(index),
+          ),
+        ),
       ),
       body: _pages[_selectedIndex],
     );
