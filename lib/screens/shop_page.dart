@@ -83,42 +83,35 @@ class _ShopPageState extends ConsumerState<ShopPage> {
                               ),
                               const SizedBox(height: 5.0),
                               Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Stack(
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Text(" Small:",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelMedium),
-                                          Text(
-                                              " £${coffeTypesInStore[index].smallPrice}",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelSmall),
-                                        ],
-                                      ),
-                                      Positioned(
-                                        right: 1.0,
-                                        child: Row(
-                                          children: [
-                                            Text(" Medium:",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelMedium),
-                                            Text(
-                                                " £${coffeTypesInStore[index].mediumPrice}",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelSmall),
-                                          ],
-                                        ),
-                                      ),
+                                      Text(" Small:",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
+                                      Text(
+                                          " £${coffeTypesInStore[index].smallPrice}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall),
                                     ],
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(" Medium:",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
+                                      Text(
+                                          " £${coffeTypesInStore[index].mediumPrice}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall),
+                                    ],
+                                  ),
+                                  Row(
                                     children: [
                                       Text(" Large:",
                                           style: Theme.of(context)
