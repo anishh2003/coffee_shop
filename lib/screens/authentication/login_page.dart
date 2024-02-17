@@ -1,6 +1,5 @@
 import 'package:coffee_shop/provider/auth_page_provider.dart';
-import 'package:coffee_shop/screens/authentication/register_page.dart';
-import 'package:coffee_shop/screens/home_page.dart';
+import 'package:coffee_shop/services/auth_services.dart';
 import 'package:coffee_shop/widgets/auth_textfield.dart';
 import 'package:coffee_shop/widgets/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -168,16 +167,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 const SizedBox(height: 50),
 
                 // google + apple sign in buttons
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
-                    SquareTile(imagePath: 'lib/assets/google.png'),
+                    SquareTile(
+                        onTap: () => AuthService().signInWithGoogle(),
+                        imagePath: 'lib/assets/google.png'),
 
-                    SizedBox(width: 25),
+                    const SizedBox(width: 25),
 
                     // apple button
-                    SquareTile(imagePath: 'lib/assets/apple.png')
+                    SquareTile(
+                        onTap: () => () {}, imagePath: 'lib/assets/apple.png')
                   ],
                 ),
 

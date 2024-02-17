@@ -6,3 +6,5 @@ Displays Coffee types on the Shop page. <br />
 We can select the coffees required and calcualtion is done on the Cart page<br />
 Stripe package has been implemented for payments<br />
 Simple confirmation page is shown at the end.
+
+Google sign in works on real device . Not on emulator
