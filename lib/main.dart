@@ -1,4 +1,5 @@
 import 'package:coffee_shop/provider/settings_provider.dart';
+import 'package:coffee_shop/screens/authentication/login_page.dart';
 import 'package:coffee_shop/screens/home_page.dart';
 import 'package:coffee_shop/widgets/theme_data.dart';
 import 'package:flutter/material.dart';
@@ -24,33 +25,44 @@ class MainApp extends ConsumerWidget {
     var initialiseSettings = ref.watch(initialiseSettingsProvider);
     var darkThemeToggle = ref.watch(darkThemeProvider);
 
-    return initialiseSettings.when(
-      data: (data) => MaterialApp(
-        theme: lightMode,
-        darkTheme: darkMode,
-        themeMode: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
-        home: const Scaffold(
-          body: Center(
-            child: HomePage(),
-          ),
+    return MaterialApp(
+      theme: lightMode,
+      darkTheme: darkMode,
+      themeMode: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
+      home: const Scaffold(
+        body: Center(
+          child: LoginPage(),
         ),
       ),
-      error: (error, stackTrace) => MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: Text("Error encountered : $error"),
-          ),
-        ),
-      ),
-      loading: () {
-        return MaterialApp(
-          home: Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-        );
-      },
     );
+
+    // return initialiseSettings.when(
+    //   data: (data) => MaterialApp(
+    //     theme: lightMode,
+    //     darkTheme: darkMode,
+    //     themeMode: darkThemeToggle ? ThemeMode.dark : ThemeMode.light,
+    //     home: const Scaffold(
+    //       body: Center(
+    //         child: HomePage(),
+    //       ),
+    //     ),
+    //   ),
+    //   error: (error, stackTrace) => MaterialApp(
+    //     home: Scaffold(
+    //       body: Center(
+    //         child: Text("Error encountered : $error"),
+    //       ),
+    //     ),
+    //   ),
+    //   loading: () {
+    //     return MaterialApp(
+    //       home: Center(
+    //         child: CircularProgressIndicator(
+    //           color: Theme.of(context).colorScheme.primary,
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }

@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class BottomNavBar extends ConsumerWidget {
-  BottomNavBar({super.key, required this.onTabChange});
+  const BottomNavBar({super.key, required this.onTabChange});
 
-  void Function(int)? onTabChange;
+  final void Function(int)? onTabChange;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

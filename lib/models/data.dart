@@ -1,5 +1,4 @@
 import 'package:coffee_shop/models/model.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 List<CoffeeModel> coffeeTypes = [
   CoffeeModel(
