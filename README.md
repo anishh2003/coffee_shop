@@ -8,3 +8,4 @@ Stripe package has been implemented for payments<br />
 Simple confirmation page is shown at the end.
 
 Google sign in works on real device . Not on emulator
+Apple sign in not implemented as I need a developer account
