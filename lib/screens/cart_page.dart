@@ -1,6 +1,7 @@
 import 'package:coffee_shop/models/model.dart';
 import 'package:coffee_shop/payments/stripe_payment.dart';
 import 'package:coffee_shop/provider/cartList_provider.dart';
+import 'package:coffee_shop/provider/payButton_provider.dart';
 import 'package:coffee_shop/provider/settings_provider.dart';
 import 'package:coffee_shop/screens/coffee_detail_page.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class _CartPageState extends ConsumerState<CartPage> {
   Widget build(BuildContext context) {
     List<CoffeeModel> coffeTypesSelected = ref.watch(cartListProvider);
     var darkThemeToggle = ref.watch(usersSettingsProvider);
+    var payButtonClicked = ref.watch(payButtonProvider);
     return Stack(
       children: [
         SingleChildScrollView(
@@ -207,23 +209,33 @@ class _CartPageState extends ConsumerState<CartPage> {
             child: SizedBox(
               width: 200.0,
               child: ElevatedButton(
-                  onPressed:
-                      ref.read(cartListProvider.notifier).totalPriceForCart() ==
-                              '0.00'
-                          ? null
-                          : () async {
-                              await makePayment(
-                                  context,
-                                  ref
-                                      .read(cartListProvider.notifier)
-                                      .totalPriceForCart(),
-                                  darkThemeToggle.getUsersThemeSettings()!);
-                            },
-                  child: Text(
-                    'Pay Now',
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary),
-                  )),
+                onPressed:
+                    ref.read(cartListProvider.notifier).totalPriceForCart() ==
+                                '0.00' ||
+                            payButtonClicked
+                        ? null
+                        : () async {
+                            ref
+                                .read(payButtonProvider.notifier)
+                                .update((state) => true);
+                            await makePayment(
+                              context,
+                              ref
+                                  .read(cartListProvider.notifier)
+                                  .totalPriceForCart(),
+                              darkThemeToggle.getUsersThemeSettings()!,
+                            );
+                            ref
+                                .read(payButtonProvider.notifier)
+                                .update((state) => false);
+                          },
+                child: Text(
+                  'Pay Now',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                ),
+              ),
             ),
           ),
         )
